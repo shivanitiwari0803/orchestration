@@ -15,9 +15,25 @@ export async function createPod(sandboxId){
                     name: 'sandbox-container',
                     ports:[{
                         containerPort:5173
-                    }]
+                    }],
+                    resources:{
+                        limits:{
+                            cpu: '500m',
+                            memory: '1Gi'
+                        },
+                        requests:{
+                            cpu: '250m',
+                            memory: '500Gi'
+                        }
+                    }
                 }
             }
         }
     }
+
+    const response = await k8sCoreV1Api.createNamespace({
+        namespace: 'default',
+        body:podManifest
+    })
+    return response
 }
