@@ -4,7 +4,7 @@ metadata:
   name:  resource-manager
 
 ---
-apiVersion: rbac.authorisation.k8s.io/v1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata: 
   name: resource-manager
@@ -14,14 +14,14 @@ rules:
   verbs: ["get","list","watch","create","delete"]
 
 ---
-apiVersion: rbac.authorisation.k8s.io/v1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata: 
   name: resource-manager-binding
 subjects:
-- kind: serviceAccount
+- kind: ServiceAccount
   name:  resource-manager
 roleRef: 
   kind: Role
   name:  resource-manager
-  apiGroup: rbac.authorisation.k8s.io
+  apiGroup: rbac.authorization.k8s.io
