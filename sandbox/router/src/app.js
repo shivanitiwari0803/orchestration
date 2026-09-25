@@ -18,16 +18,24 @@ app.get("/api/status/readyz",(req,res)=>{
     })
 })
 
+const proxies = {}
+
+function getProxy(sandboxId,target){
+    if(!proxies[sandboxId]){
+        proxies[sandboxId]= createProxyMiddleware({
+            target,
+            changeOrigin:true,
+            ws:true
+        })
+    }
+    return proxies[sandboxId]
+}
+
 app.use((req,res,next)=>{
     const host = req.headers.host
     const sandboxId= host.split('.')[0]
     const target = `http://sandbox-service${sandboxId}`
-    return createProxyMiddleware({
-        target,
-        changeOrigin:true,
-        ws:true,
-
-    })(req,res,next)
+    return getProxy(sandboxId, target) (req,res,next)
 })
 
 export default app
