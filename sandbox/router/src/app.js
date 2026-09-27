@@ -34,7 +34,7 @@ function getProxy(sandboxId,target){
 app.use((req,res,next)=>{
     const host = req.headers.host
     const sandboxId= host.split('.')[0]
-    const target = `http://sandbox-service${sandboxId}`
+    const target = `http://sandbox-service-${sandboxId}`
     return getProxy(sandboxId, target) (req,res,next)
 })
 
