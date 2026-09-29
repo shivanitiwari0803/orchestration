@@ -12,7 +12,7 @@ export async function createPod(sandboxId) {
     spec: {
       volumes: [
         {
-          name: "workspace_volume",
+          name: "workspace-volume",
           emptyDir: {},
         },
       ],
@@ -38,7 +38,7 @@ export async function createPod(sandboxId) {
           },
           volumeMounts: [
             {
-              name: "workspace_volume",
+              name: "workspace-volume",
               mountPath: "/workspace",
             },
           ],
